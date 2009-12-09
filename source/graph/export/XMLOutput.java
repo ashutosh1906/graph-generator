@@ -58,7 +58,7 @@ public class XMLOutput extends Exporter {
 
         }
 
-        return xml + "\n</graph>";
+        return xml + sep + "</graph>";
 
     }
 
