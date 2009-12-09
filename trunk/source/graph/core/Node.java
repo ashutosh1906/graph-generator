@@ -15,12 +15,11 @@ import java.awt.Font;
 
 /**
  *
- * @author Linus
+ * @author Linus Norton <linusnorton@gmail.com>
  */
 public class Node {
     public double x, y, z;
-    private int width, height;
-    private int screenX, screenY, xOffset, yOffset, id;
+    private int id;
     public ArrayList<Edge> edges;
     public static int nodeCount = 0;
 
@@ -29,112 +28,26 @@ public class Node {
      *  @param x x position of node
      *  @param y y position of node
      *  @param z z position of node
-     *  @param screenX screen width. used to calculate the center of the screen
-     *  @param screenY screen height, used for center of screen.
      */
-    public Node(int x, int y, int z, int screenX, int screenY) {
+    public Node(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
 
-        width = 15;
-        height = 15;
-
-        setScreen(screenX, screenY);
-
         edges = new ArrayList<Edge>();
         id = nodeCount++;
     }
 
-    /** Creates a new instance of Node
+
+    /**
+     * Creates a new instance of Node
      *
-     *  @param x x position of node
-     *  @param y y position of node
-     *  @param z z position of node
-     *  @param screenX screen width. used to calculate the center of the screen
-     *  @param screenY screen height, used for center of screen.
-     *  @param width width of the node (when drawn)
-     *  @param height height of the node (when drawn)
+     *  x, y and z are randomly calculated double between 0 and 1
      */
-    public Node(int x, int y, int z, int screenX, int screenY, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-
-        this.width = width;
-        this.height = height;
-
-        setScreen(screenX, screenY);
-
-        edges = new ArrayList<Edge>();
-        id = nodeCount++;
-    }
-
-    /** Creates a new instance of Node
-     *
-     *  @param screenX screen width. used to calculate the center of the screen
-     *  @param screenY screen height, used for center of screen.
-     *
-     *  x, y and z are randomly calculated using the screen size as follows:
-     *
-     *  this.x = (Math.random() * screenX) - screenX / 2;
-     *
-     *  so with a screenX of 480 the pos will be +/- 240
-     */
-    public Node(int screenX, int screenY) {
-        this.x = (Math.random() * screenX);
-        this.y = (Math.random() * screenY);
-        this.z = (Math.random() * screenX);
-
-        width = 15;
-        height = 15;
-
-        setScreen(screenX, screenY);
-
-        edges = new ArrayList<Edge>();
-        id = nodeCount++;
-    }
-
-    public Node(int screenX, int screenY, boolean twoDimensional) {
-        this.x = (Math.random() * screenX);
-        this.y = (Math.random() * screenY);
-
-        if (twoDimensional)
-            this.z = 0;
-        else
-            this.z = (Math.random() * screenX);
-
-        width = 15;
-        height = 15;
-
-        setScreen(screenX, screenY);
-
-        edges = new ArrayList<Edge>();
-        id = nodeCount++;
-    }
-
-    /** Creates a new instance of Node
-     *
-     *  @param screenX screen width. used to calculate the center of the screen
-     *  @param screenY screen height, used for center of screen.
-     *  @param width width of the node (when drawn)
-     *  @param height height of the node (when drawn)
-     *
-     *  x, y and z are randomly calculated using the screen size as follows:
-     *
-     *  this.x = (Math.random() * screenX) - screenX / 2;
-     *
-     *  so with a screenX of 480 the pos will be +/- 240
-     */
-    public Node(int screenX, int screenY, int width, int height) {
-        this.x = (Math.random() * screenX) - screenX / 2;
-        this.y = (Math.random() * screenY) - screenY / 2;
-        this.z = (Math.random() * screenX) - screenX / 2;
-
-        this.width = width;
-        this.height = height;
-
-        setScreen(screenX, screenY);
+    public Node() {
+        this.x = Math.random();
+        this.y = Math.random();
+        this.z = Math.random();
 
         edges = new ArrayList<Edge>();
         id = nodeCount++;
@@ -161,7 +74,7 @@ public class Node {
         while (it.hasNext()) {
             Edge e = it.next();
 
-            //node opersite this one is b then connected
+            //node opposite this one is b then connected
             if (e.getOpposingNode(this) == b)
                 return true;
 
@@ -186,22 +99,6 @@ public class Node {
         z = Z;
     }
 
-    public void paint(Graphics g) {
-        g.fillOval( (int)x + xOffset, (int)y + yOffset , width , height );
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Aerial", Font.PLAIN, 10));
-        g.drawString(Integer.toString(id), (int)x + xOffset + 2, (int)y + yOffset + 10);
-        g.setColor(Color.BLACK);
-    }
-
-    /** sets the offsets used for drawing */
-    public void setScreen(int x, int y) {
-        screenX = x;
-        screenY = y;
-        xOffset = (int) ( x / 2 ) - ( width / 2 );
-        yOffset = (int) ( y / 2 ) - ( height / 2 );
-    }
-
     public String getIDString() {
         return Integer.toString(id);
     }
@@ -219,7 +116,7 @@ public class Node {
        Iterator<Edge> it = edges.iterator();
        while (it.hasNext()) {
            //destroy but only tell the other node because
-           //we dont want concurrent modification
+           //we don't want concurrent modification
            Edge e = it.next();
            masterEdgeList.remove(e);
            e.destroy(this);

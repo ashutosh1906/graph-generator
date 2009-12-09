@@ -19,11 +19,11 @@ public class Graph {
     /** Creates a new instance of Graph
      *  @param nodes number of nodes for the graph
      *  @param edges number of edges for the graph
-     *  @param screen passed to nodes, so they can get their initial pos
+     *  @param maxDegree maximum degree of generated nodes
      *
      *  throws an EdgeException if it cant add any more edges to any of the nodes
      */
-    public Graph(int nodesCount, int edgesCount, int maxX, int maxY, int maxDegree)
+    public Graph(int nodesCount, int edgesCount, int maxDegree)
         throws Exception {
 
         //reset graph so nodes go back to 0
@@ -33,7 +33,7 @@ public class Graph {
         edges = new ArrayList<Edge>();
 
         for (int i = 0; i < nodesCount; i++) {
-            nodes.add(new Node( maxX, maxY));
+            nodes.add(new Node());
         }
 
         //for all edges add some random nodes together
@@ -57,7 +57,7 @@ public class Graph {
                 continue;
             }
 
-            edges.add( new Edge(a,b, maxX, maxX));
+            edges.add( new Edge(a,b));
         }
     }
 
@@ -86,7 +86,7 @@ public class Graph {
 
             //try the next node
             j++;
-            //if weve gone passed the end go back to start
+            //if we've gone passed the end go back to start
             if (j == nodes.size())
                 j = 0;
 
