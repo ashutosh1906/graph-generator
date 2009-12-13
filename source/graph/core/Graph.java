@@ -25,15 +25,12 @@ public class Graph {
      */
     public Graph(int nodesCount, int edgesCount, int maxDegree)
         throws Exception {
-
-        //reset graph so nodes go back to 0
-        Node.nodeCount = 0;
-
+       
         nodes = new ArrayList<Node>();
         edges = new ArrayList<Edge>();
 
         for (int i = 0; i < nodesCount; i++) {
-            nodes.add(new Node());
+            nodes.add(new Node(i + 1));
         }
 
         //for all edges add some random nodes together
@@ -47,8 +44,9 @@ public class Graph {
                 j = 0;
 
                 //if the last node is full then we got a problem
-                if (b == null || a.getDegree() >= maxDegree || b.getDegree() >= maxDegree)
+                if (b == null || a.getDegree() >= maxDegree || b.getDegree() >= maxDegree) {
                     throw new Exception("Cannot create any more edges, all nodes full!");
+                }
             }
 
             //current node is connected to all other nodes try next one
@@ -62,8 +60,7 @@ public class Graph {
     }
 
     public Graph() {
-        //reset graph so nodes go back to 0
-        Node.nodeCount = 0;
+
     }
 
     /**
@@ -98,16 +95,18 @@ public class Graph {
 
     /** safely adds a node to the graph */
     public void addNode(Node n ) {
-        if (n == null)
+        if (n == null) {
             return;
+        }
 
         nodes.add(n);
     }
 
     /** safely adds an edge to the graph */
     public void addEdge(Edge e ) {
-        if (e == null)
+        if (e == null) {
             return;
+        }
 
         edges.add(e);
     }
