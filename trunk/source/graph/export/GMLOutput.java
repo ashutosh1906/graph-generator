@@ -30,8 +30,8 @@ public class GMLOutput extends Exporter {
                     "\t\tid " + n.getIDString() + "\n" +
                     "\t\tlabelAnchor \"c\"\n" +
                     "\t\tgraphics [ \n" +
-                    "\t\t\tx " + Integer.toString( (int) n.x) + "\n" +
-                    "\t\t\ty " + Integer.toString( (int) n.y) + "\n" +
+                    "\t\t\tx " + Double.toString( n.getX()) + "\n" +
+                    "\t\t\ty " + Double.toString( n.getY()) + "\n" +
                     "\t\t\tw 10\n" +
                     "\t\t\th 10\n" +
                     "\t\t\ttype \"rectangle\"\n" +
@@ -45,8 +45,8 @@ public class GMLOutput extends Exporter {
         while (iter.hasNext()) {
             Edge e = iter.next();
             xml += "\tedge [\n" +
-                    "\t\tsource " + e.a.getIDString() + "\n" +
-                    "\t\ttarget " + e.b.getIDString() + "\n" +
+                    "\t\tsource " + e.getA().getIDString() + "\n" +
+                    "\t\ttarget " + e.getB().getIDString() + "\n" +
                     "\t\tgraphics [ \n" +
                     "\t\t\ttype \"line\"\n" +
                     "\t\t]\n" +

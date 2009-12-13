@@ -9,19 +9,15 @@ package graph.core;
  */
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.awt.Graphics;
-import java.awt.Color;
-import java.awt.Font;
 
 /**
  *
  * @author Linus Norton <linusnorton@gmail.com>
  */
 public class Node {
-    public double x, y, z;
+    private double x, y, z;
     private int id;
-    public ArrayList<Edge> edges;
-    public static int nodeCount = 0;
+    private ArrayList<Edge> edges;
 
     /** Creates a new instance of Node
      *
@@ -29,13 +25,13 @@ public class Node {
      *  @param y y position of node
      *  @param z z position of node
      */
-    public Node(int x, int y, int z) {
+    public Node(double x, double y, double z, int id) {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.id = id;
 
         edges = new ArrayList<Edge>();
-        id = nodeCount++;
     }
 
 
@@ -44,21 +40,34 @@ public class Node {
      *
      *  x, y and z are randomly calculated double between 0 and 1
      */
+    public Node(int id) {
+        this.x = Math.random();
+        this.y = Math.random();
+        this.z = Math.random();
+        this.id = id;
+
+        edges = new ArrayList<Edge>();        
+    }
+
+    /**
+     * ID and position are autonatically generated
+     */
     public Node() {
         this.x = Math.random();
         this.y = Math.random();
         this.z = Math.random();
+        this.id = 0;
 
         edges = new ArrayList<Edge>();
-        id = nodeCount++;
     }
 
     /**
      * along as the same edge is not being added twice add the edge
      */
     public void addEdge(Edge e) {
-        if (!edges.contains(e) && e != null)
+        if (!edges.contains(e) && e != null) {
             edges.add(e);
+        }
     }
 
     /** remove an edge from the node */
@@ -75,9 +84,9 @@ public class Node {
             Edge e = it.next();
 
             //node opposite this one is b then connected
-            if (e.getOpposingNode(this) == b)
+            if (e.getOpposingNode(this) == b) {
                 return true;
-
+            }
         }
 
         return false;
@@ -103,14 +112,6 @@ public class Node {
         return Integer.toString(id);
     }
 
-    public int getID() {
-        return id;
-    }
-
-    public void setID(int i ) {
-        id = i;
-    }
-
     /** destroy all edges connected to this node */
     public void destroy(ArrayList<Edge> masterEdgeList) {
        Iterator<Edge> it = edges.iterator();
@@ -126,4 +127,41 @@ public class Node {
     public int getDegree() {
         return edges.size();
     }
+
+    public ArrayList<Edge> getEdges() {
+        return edges;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getZ() {
+        return z;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
 }

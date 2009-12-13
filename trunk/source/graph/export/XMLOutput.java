@@ -36,22 +36,22 @@ public class XMLOutput extends Exporter {
         while (it.hasNext()) {
             Node n = it.next();
             xml += sep + "\t<vertex id='" + n.getIDString() + "' " +
-                    " x='" + Double.toString( n.x) + "' " +
-                    " y='" + Double.toString( n.y) + "' " +
-                    " z='" + Double.toString( n.z) + "'/>";
+                    " x='" + Double.toString( n.getX()) + "' " +
+                    " y='" + Double.toString( n.getY()) + "' " +
+                    " z='" + Double.toString( n.getZ()) + "'/>";
 
         }
 
         Iterator<Edge> iter = graph.edges.iterator();
         while (iter.hasNext()) {
             Edge e = iter.next();
-            xml += sep + "\t<edge v1='" + e.a.getIDString() + "' " +
-                    " v2='" + e.b.getIDString() + "' " +
+            xml += sep + "\t<edge v1='" + e.getA().getIDString() + "' " +
+                    " v2='" + e.getB().getIDString() + "' " +
                     " length='" + Double.toString( e.getLength()) + "'";
 
-            for (int i = 0; i < e.bends.size(); i++) {
-                xml += " bend" + i + "x='" + e.bends.get(i).x + "'";
-                xml += " bend" + i + "y='" + e.bends.get(i).y + "'";
+            for (int i = 0; i < e.getBends().size(); i++) {
+                xml += " bend" + i + "x='" + e.getBends().get(i).x + "'";
+                xml += " bend" + i + "y='" + e.getBends().get(i).y + "'";
             }
 
             xml += "/>";

@@ -15,8 +15,8 @@ import java.util.ArrayList;
  * @author Linus
  */
 public class Edge {
-    public Node a, b;
-    public ArrayList<Point> bends;
+    private Node a, b;
+    private ArrayList<Point> bends;
 
     /** Creates a new instance of Edge */
     public Edge(Node a, Node b) throws EdgeException {
@@ -50,9 +50,9 @@ public class Edge {
         if (a == null || b == null)
             return 0;
 
-        double x = a.x - b.x;
-        double y = a.y - b.y;
-        double z = a.z - b.z;
+        double x = a.getX() - b.getX();
+        double y = a.getY() - b.getY();
+        double z = a.getZ() - b.getZ();
 
         return Math.sqrt(x*x + y*y + z*z);
     }
@@ -75,6 +75,7 @@ public class Edge {
         getOpposingNode(n).removeEdge(this);
     }
 
+    @Override
     public String toString() {
         return "From node: " + a.getIDString() + " to node: " + b.getIDString();
     }
@@ -82,4 +83,30 @@ public class Edge {
     public void addBend(Point b) {
         bends.add(b);
     }
+
+    public Node getA() {
+        return a;
+    }
+
+    public void setA(Node a) {
+        this.a = a;
+    }
+
+    public Node getB() {
+        return b;
+    }
+
+    public void setB(Node b) {
+        this.b = b;
+    }
+
+    public ArrayList<Point> getBends() {
+        return bends;
+    }
+
+    public void setBends(ArrayList<Point> bends) {
+        this.bends = bends;
+    }
+
+
 }
